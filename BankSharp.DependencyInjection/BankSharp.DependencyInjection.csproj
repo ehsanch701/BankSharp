@@ -7,12 +7,12 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 
+		<!-- Strict Compiler Hygiene & Quality Gate -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
 		<!-- Native AOT & Trimming Support -->
 		<IsAotCompatible>true</IsAotCompatible>
 		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-
-		<!-- Suppress CS1591 (Missing XML comments warning during initial release builds) -->
-		<NoWarn>$(NoWarn);1591</NoWarn>
 
 		<!-- NuGet Package Identity & Metadata -->
 		<PackageId>BankSharp.DependencyInjection</PackageId>
@@ -34,6 +34,9 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- Deterministic CI Builds for GitHub Actions -->
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
 		<!-- NuGet Package Assets -->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -57,15 +60,10 @@
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- Pack the README and Icon gracefully while hiding them from Solution Explorer -->
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
 	<ItemGroup>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\..\README.md')" />
-		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\README.md') and !Exists('..\..\README.md')" />
-		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('README.md') and !Exists('..\README.md') and !Exists('..\..\README.md')" />
-
-		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\..\icon.png')" />
-		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\icon.png') and !Exists('..\..\icon.png')" />
-		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('icon.png') and !Exists('..\icon.png') and !Exists('..\..\icon.png')" />
+		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

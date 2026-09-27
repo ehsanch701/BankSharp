@@ -67,9 +67,9 @@ public sealed class IbanSchemaTransformer : IOpenApiSchemaTransformer
         schema.Description = "International Bank Account Number (ISO 13616 standard).";
 
 #if NET10_0_OR_GREATER
-        // In .NET 10 with Microsoft.OpenApi 2.x, types use the JsonSchemaType enum and examples use JsonNode/JsonValue
+        // In .NET 10 with Microsoft.OpenApi 2.x, types use the JsonSchemaType enum and Examples uses IList<JsonNode>
         schema.Type = JsonSchemaType.String;
-        schema.Example = JsonValue.Create(SampleIban);
+        schema.Examples = [JsonValue.Create(SampleIban)!];
 #else
         // In .NET 9 with Microsoft.OpenApi 1.6.x object model
         schema.Type = "string";

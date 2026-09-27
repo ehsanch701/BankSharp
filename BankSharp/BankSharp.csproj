@@ -7,6 +7,9 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 
+		<!-- Strict Compiler Hygiene & Quality Gate -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
 		<!-- Native AOT & Trimming Compatibility (Guarantees zero-reflection and full trim safety) -->
 		<IsAotCompatible>true</IsAotCompatible>
 		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
@@ -55,18 +58,10 @@
 		<InternalsVisibleTo Include="BankSharp.OpenApi" />
 	</ItemGroup>
 
-	<!-- Pack README.md gracefully from root or project directory -->
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
 	<ItemGroup>
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" Condition="Exists('..\..\README.md')" Visible="false" />
-		<None Include="..\README.md" Pack="true" PackagePath="\" Condition="Exists('..\README.md') and !Exists('..\..\README.md')" Visible="false" />
-		<None Include="README.md" Pack="true" PackagePath="\" Condition="Exists('README.md') and !Exists('..\README.md') and !Exists('..\..\README.md')" Visible="false" />
-	</ItemGroup>
-
-	<!-- Pack icon.png gracefully from root or project directory -->
-	<ItemGroup>
-		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Condition="Exists('..\..\icon.png')" Visible="false" />
-		<None Include="..\icon.png" Pack="true" PackagePath="\" Condition="Exists('..\icon.png') and !Exists('..\..\icon.png')" Visible="false" />
-		<None Include="icon.png" Pack="true" PackagePath="\" Condition="Exists('icon.png') and !Exists('..\icon.png') and !Exists('..\..\icon.png')" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

@@ -7,8 +7,8 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 
-		<!-- Suppress CS1591 (Missing XML comments warning during builds) -->
-		<NoWarn>$(NoWarn);1591</NoWarn>
+		<!-- Strict Compiler Hygiene & Quality Gate -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- NuGet Package Identity & Metadata -->
 		<PackageId>BankSharp.EntityFrameworkCore</PackageId>
@@ -31,19 +31,17 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
+		<!-- Deterministic CI Builds for GitHub Actions -->
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
 		<!-- NuGet Package Assets -->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
-	<!-- Continuous Integration Deterministic SourceLink Settings -->
-	<PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-	</PropertyGroup>
-
 	<!-- Enable Source Link for reproducible builds and source stepping in debuggers -->
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
 	</ItemGroup>
 
 	<!-- Target-specific EF Core dependencies -->
@@ -63,26 +61,10 @@
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- Pack README with prioritized fallback checks (hidden in IDE) -->
-	<ItemGroup Condition="Exists('..\..\README.md')">
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\README.md') and Exists('..\README.md')">
-		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\README.md') and !Exists('..\README.md') and Exists('README.md')">
-		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-
-	<!-- Pack Icon with prioritized fallback checks (hidden in IDE) -->
-	<ItemGroup Condition="Exists('..\..\icon.png')">
-		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\icon.png') and Exists('..\icon.png')">
-		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\icon.png') and !Exists('..\icon.png') and Exists('icon.png')">
-		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" />
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

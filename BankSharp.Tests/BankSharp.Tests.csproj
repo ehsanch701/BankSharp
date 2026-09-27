@@ -7,15 +7,18 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 
-		<!-- Test Project Specific Configuration -->
+		<!-- Strict compiler quality gate while testing -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+		<!-- Test project specific flags (Disable NuGet packaging) -->
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 
-		<!-- Suppress missing XML comment warnings for test methods -->
+		<!-- Suppress missing XML documentation warnings for test cases (CS1591) -->
 		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
 
-	<!-- Common testing harness dependencies -->
+	<!-- Core test execution harness & runner dependencies -->
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
 		<PackageReference Include="xunit" Version="2.9.3" />
@@ -30,34 +33,35 @@
 		<PackageReference Include="FluentValidation" Version="12.1.1" />
 	</ItemGroup>
 
-	<!-- .NET 8.0: Classic Swashbuckle & EFCore 8 -->
+	<!-- .NET 8.0: EF Core In-Memory 8 and classic Swashbuckle -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.13" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
 	</ItemGroup>
 
-	<!-- .NET 9.0: Microsoft OpenAPI v1 & EFCore 9 -->
+	<!-- .NET 9.0: EF Core In-Memory 9 and Microsoft OpenAPI v1 -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
 	</ItemGroup>
 
-	<!-- .NET 10.0: Modern Microsoft OpenAPI v2 & EFCore 10 preview -->
+	<!-- .NET 10.0: EF Core In-Memory 10 and Microsoft OpenAPI v2 -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.*" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.*" />
 	</ItemGroup>
 
-	<!-- Project references covering the whole BankSharp ecosystem -->
+	<!-- References covering all projects within the BankSharp ecosystem -->
 	<ItemGroup>
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 		<ProjectReference Include="..\BankSharp.DependencyInjection\BankSharp.DependencyInjection.csproj" />
+		<!-- Adjust relative directory path if your folder is named BankSharp.FluentValidation -->
 		<ProjectReference Include="..\FluentValidation\BankSharp.FluentValidation.csproj" />
 		<ProjectReference Include="..\BankSharp.EntityFrameworkCore\BankSharp.EntityFrameworkCore.csproj" />
 		<ProjectReference Include="..\BankSharp.OpenApi\BankSharp.OpenApi.csproj" />
 	</ItemGroup>
 
-	<!-- Global test usings -->
+	<!-- Global test namespaces for clean test classes -->
 	<ItemGroup>
 		<Using Include="Xunit" />
 	</ItemGroup>

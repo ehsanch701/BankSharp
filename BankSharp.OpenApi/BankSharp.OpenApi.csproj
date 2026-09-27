@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- Target Frameworks: Multi-targeting .NET 8, 9, and 10 -->
+		<!-- Target Frameworks: Multi-targeting .NET 8 (LTS), .NET 9 (STS), and .NET 10 -->
 		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 
-		<!-- Suppress CS1591 (Missing XML comments warning during builds) -->
-		<NoWarn>$(NoWarn);1591</NoWarn>
+		<!-- Strict Compiler Hygiene & Quality Gate -->
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- NuGet Package Identity & Metadata -->
 		<PackageId>BankSharp.OpenApi</PackageId>
@@ -31,17 +31,20 @@
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
+		<!-- Deterministic CI Builds for GitHub Actions -->
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
 		<!-- NuGet Package Assets -->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
-	<!-- Enable Source Link for debugging into source code -->
+	<!-- Enable Source Link for reproducible builds and source stepping in debuggers -->
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
 	</ItemGroup>
 
-	<!-- Shared project references across all targets -->
+	<!-- Core Library Reference (Packaged as a package dependency) -->
 	<ItemGroup>
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
@@ -63,26 +66,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.*" />
 	</ItemGroup>
 
-	<!-- Pack README.md gracefully with fallback checks (hidden in IDE) -->
-	<ItemGroup Condition="Exists('..\..\README.md')">
-		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\README.md') and Exists('..\README.md')">
-		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\README.md') and !Exists('..\README.md') and Exists('README.md')">
-		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-
-	<!-- Pack icon.png gracefully with fallback checks (hidden in IDE) -->
-	<ItemGroup Condition="Exists('..\..\icon.png')">
-		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\icon.png') and Exists('..\icon.png')">
-		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
-	<ItemGroup Condition="!Exists('..\..\icon.png') and !Exists('..\icon.png') and Exists('icon.png')">
-		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" />
+	<!-- Package Icon & Readme from repository root using deterministic relative paths -->
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>
