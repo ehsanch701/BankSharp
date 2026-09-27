@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Target Frameworks: Multi-targeting .NET 8 (LTS), .NET 9 (STS), and .NET 10 -->
+		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+
+		<!-- Suppress CS1591 (Missing XML comments warning during builds) -->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+
+		<!-- NuGet Package Identity & Metadata -->
+		<PackageId>BankSharp.FluentValidation</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>EhsanChegeni</Authors>
+		<Company>EhsanChegeni</Company>
+		<Title>BankSharp.FluentValidation - FluentValidation Extensions for BankSharp</Title>
+		<Description>FluentValidation extensions for BankSharp. Provides fluent rule builders (.MustBeValidIban()) for seamless, high-performance IBAN validation with custom error messages and ISO-13616 compliance.</Description>
+		<PackageTags>iban;banking;fintech;fluentvalidation;validation;rules;validator;iso13616;dotnet8;dotnet9;dotnet10</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>Initial 1.0.0 release providing fluent extension methods for IBAN validation with FluentValidation.</PackageReleaseNotes>
+
+		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- NuGet Package Assets -->
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<!-- Enable Source Link for reproducible builds and stepping into source while debugging -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- FluentValidation Core Dependency -->
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="12.1.1" />
+	</ItemGroup>
+
+	<!-- Main Core BankSharp Reference -->
+	<ItemGroup>
+		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
+	</ItemGroup>
+
+	<!-- Pack README.md with robust fallback (hidden in IDE) -->
+	<ItemGroup Condition="Exists('..\..\README.md')">
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\README.md') and Exists('..\README.md')">
+		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\README.md') and !Exists('..\README.md') and Exists('README.md')">
+		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+	<!-- Pack icon.png with robust fallback (hidden in IDE) -->
+	<ItemGroup Condition="Exists('..\..\icon.png')">
+		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\icon.png') and Exists('..\icon.png')">
+		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\icon.png') and !Exists('..\icon.png') and Exists('icon.png')">
+		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+</Project>

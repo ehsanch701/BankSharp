@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Target Frameworks: Multi-targeting modern LTS and STS .NET versions -->
+		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+
+		<!-- Native AOT & Trimming Support -->
+		<IsAotCompatible>true</IsAotCompatible>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+
+		<!-- Suppress CS1591 (Missing XML comments warning during initial release builds) -->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+
+		<!-- NuGet Package Identity & Metadata -->
+		<PackageId>BankSharp.DependencyInjection</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>EhsanChegeni</Authors>
+		<Company>EhsanChegeni</Company>
+		<Title>BankSharp.DependencyInjection - Microsoft.Extensions.DependencyInjection Support</Title>
+		<Description>Dependency Injection extensions and service registrations for BankSharp IBAN validation, parsing, and formatting toolkit in ASP.NET Core and .NET applications.</Description>
+		<PackageTags>iban;banking;fintech;dependency-injection;di;ioc;aspnetcore;servicecollection;dotnet8;dotnet9;dotnet10</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>Initial 1.0.0 release providing IIbanValidator service registrations and IServiceCollection extensions for BankSharp.</PackageReleaseNotes>
+
+		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- NuGet Package Assets -->
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<!-- Enable Source Link for reproducible builds and source stepping in debuggers -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- Target-specific DI Abstractions to ensure seamless runtime compatibility -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" Condition="'$(TargetFramework)' == 'net9.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" Condition="'$(TargetFramework)' == 'net10.0'" />
+	</ItemGroup>
+
+	<!-- Project reference: dotnet pack will automatically transform this into a NuGet package dependency -->
+	<ItemGroup>
+		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
+	</ItemGroup>
+
+	<!-- Pack the README and Icon gracefully while hiding them from Solution Explorer -->
+	<ItemGroup>
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\..\README.md')" />
+		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\README.md') and !Exists('..\..\README.md')" />
+		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" Condition="Exists('README.md') and !Exists('..\README.md') and !Exists('..\..\README.md')" />
+
+		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\..\icon.png')" />
+		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('..\icon.png') and !Exists('..\..\icon.png')" />
+		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" Condition="Exists('icon.png') and !Exists('..\icon.png') and !Exists('..\..\icon.png')" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="BankSharp.Benchmarks/BankSharp.Benchmarks.csproj" />
+  <Project Path="BankSharp.DependencyInjection/BankSharp.DependencyInjection.csproj" Id="679bd250-eb06-4c46-9e27-21f5c9945613" />
+  <Project Path="BankSharp.EntityFrameworkCore/BankSharp.EntityFrameworkCore.csproj" Id="c380312e-d045-4e37-a6e0-d522ceea966f" />
+  <Project Path="BankSharp.OpenApi/BankSharp.OpenApi.csproj" Id="6604679a-a37d-4995-907e-acb9a9db4e32" />
+  <Project Path="BankSharp.Tests/BankSharp.Tests.csproj" />
+  <Project Path="BankSharp/BankSharp.csproj" />
+  <Project Path="FluentValidation/BankSharp.FluentValidation.csproj" Id="871bca96-c0f7-414f-a8f2-e6c1a3bd7b89" />
+</Solution>

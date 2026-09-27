@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- This project must be an executable to run BenchmarkDotNet harness -->
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+
+		<!-- CRITICAL: Prevent this project from being packed into a NuGet package during 'dotnet pack' -->
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Performance benchmarking harness -->
+		<PackageReference Include="BenchmarkDotNet" Version="0.15.8" />
+
+		<!-- External library for head-to-head comparison -->
+		<PackageReference Include="IbanNet" Version="6.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Reference to the main project being tested -->
+		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
+	</ItemGroup>
+
+</Project>

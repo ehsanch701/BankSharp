@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Target Frameworks: Multi-targeting .NET 8, 9, and 10 -->
+		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+
+		<!-- Suppress CS1591 (Missing XML comments warning during builds) -->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+
+		<!-- NuGet Package Identity & Metadata -->
+		<PackageId>BankSharp.OpenApi</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>EhsanChegeni</Authors>
+		<Company>EhsanChegeni</Company>
+		<Title>BankSharp.OpenApi - OpenAPI &amp; Swagger Enrichment for BankSharp</Title>
+		<Description>OpenAPI schema enrichment and examples for BankSharp IBAN types and validation attributes in ASP.NET Core.</Description>
+		<PackageTags>iban;openapi;swagger;scalar;banksharp;validation;aspnetcore;dotnet8;dotnet9;dotnet10</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes>Initial 1.0.0 release supporting OpenAPI schema transformers across .NET 8 (Swashbuckle), .NET 9 (Microsoft.AspNetCore.OpenApi v1), and .NET 10 (v2 object model).</PackageReleaseNotes>
+
+		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- NuGet Package Assets -->
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<!-- Enable Source Link for debugging into source code -->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
+	</ItemGroup>
+
+	<!-- Shared project references across all targets -->
+	<ItemGroup>
+		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
+	</ItemGroup>
+
+	<!-- .NET 8.0: Classic Swashbuckle SwaggerGen integration -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
+	</ItemGroup>
+
+	<!-- .NET 9.0: Built-in Microsoft OpenAPI support (v1.x object model) -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
+	</ItemGroup>
+
+	<!-- .NET 10.0: Modern Microsoft OpenAPI support (v2.x object model) -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.*" />
+	</ItemGroup>
+
+	<!-- Pack README.md gracefully with fallback checks (hidden in IDE) -->
+	<ItemGroup Condition="Exists('..\..\README.md')">
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\README.md') and Exists('..\README.md')">
+		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\README.md') and !Exists('..\README.md') and Exists('README.md')">
+		<None Include="README.md" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+	<!-- Pack icon.png gracefully with fallback checks (hidden in IDE) -->
+	<ItemGroup Condition="Exists('..\..\icon.png')">
+		<None Include="..\..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\icon.png') and Exists('..\icon.png')">
+		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+	<ItemGroup Condition="!Exists('..\..\icon.png') and !Exists('..\icon.png') and Exists('icon.png')">
+		<None Include="icon.png" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+</Project>
