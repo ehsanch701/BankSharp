@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- Target Frameworks: Multi-targeting .NET 8 (LTS), .NET 9 (STS), and .NET 10 -->
+		<!-- Multi-targeting .NET 8 (LTS), .NET 9 (STS), and .NET 10 for broad compatibility -->
 		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -24,17 +24,17 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release providing IbanValueConverter and ModelBuilder configuration extensions for EF Core.</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<!-- Documentation & Symbols Packaging -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-		<!-- Deterministic CI Builds for GitHub Actions -->
+		<!-- Deterministic CI Builds -->
 		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
-		<!-- NuGet Package Assets -->
+		<!-- Package Assets -->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
@@ -44,24 +44,17 @@
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
 	</ItemGroup>
 
-	<!-- Target-specific EF Core dependencies -->
+	<!-- EF Core dependencies: Using Stable version 9.0.2 for all targets to avoid NU5104 error -->
 	<ItemGroup>
-		<!-- Use EF Core 8.x for .NET 8 target -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" Condition="'$(TargetFramework)' == 'net8.0'" />
-
-		<!-- Use EF Core 9.x for .NET 9 target -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" Condition="'$(TargetFramework)' == 'net9.0'" />
-
-		<!-- Use EF Core 10.x for .NET 10 target -->
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0-preview.1.25081.1" Condition="'$(TargetFramework)' == 'net10.0'" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
 	</ItemGroup>
 
-	<!-- Project reference: dotnet pack will automatically transform this into a NuGet package dependency -->
+	<!-- Project reference for core functionality -->
 	<ItemGroup>
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
+	<!-- Packaging Asset Configuration -->
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />

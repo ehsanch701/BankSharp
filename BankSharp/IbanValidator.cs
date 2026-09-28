@@ -61,7 +61,7 @@ public static class IbanValidator
         // 5. Registry Lookup
         if (!IbanRegistry.TryGetRule(countryCodeSpan, out var rule))
         {
-            return IbanValidationResult.Failure(IbanValidationError.UnsupportedCountry, countryCodeSpan.ToString());
+            return IbanValidationResult.Failure(IbanValidationError.UnsupportedCountry);
         }
 
         // 6. Validate country-specific length constraint
