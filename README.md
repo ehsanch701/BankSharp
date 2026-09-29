@@ -1,9 +1,15 @@
-# BankSharp
+# 🏦 BankSharp
+
+<div align="center">
 
 [![Build & Test](https://github.com/ehsanch701/BankSharp/actions/workflows/ci.yml/badge.svg)](https://github.com/ehsanch701/BankSharp/actions)
+[![NuGet Version](https://img.shields.io/nuget/v/BankSharp.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/BankSharp/)
+[![Total Downloads](https://img.shields.io/nuget/dt/BankSharp.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/BankSharp/)
+[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-blueviolet?logo=dotnet)](https://dotnet.microsoft.com/)
+[![Native AOT](https://img.shields.io/badge/Native%20AOT-Compatible-success?logo=dotnet)](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-512BD4)](https://dotnet.microsoft.com/)
-[![Native AOT Compatible](https://img.shields.io/badge/Native%20AOT-compatible-blue)](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)
+
+</div>
 
 **BankSharp** is an ultra-fast ISO 13616 International Bank Account Number (IBAN) validation, parsing, and formatting library for .NET, engineered for high throughput with zero-allocation hot paths and full **Native AOT** compatibility.
 
@@ -48,12 +54,13 @@ dotnet add package BankSharp
 
 Or pick individual modular extensions:
 
-```bash
-dotnet add package BankSharp.DependencyInjection
-dotnet add package BankSharp.OpenApi
-dotnet add package BankSharp.EntityFrameworkCore
-dotnet add package BankSharp.FluentValidation
-```
+| Package | Version | Downloads | Install Command |
+|---------|---------|-----------|-----------------|
+| `BankSharp` | [![NuGet](https://img.shields.io/nuget/v/BankSharp.svg?style=flat-square&logo=nuget)](https://www.nuget.org/packages/BankSharp/) | [![Downloads](https://img.shields.io/nuget/dt/BankSharp.svg?style=flat-square)](https://www.nuget.org/packages/BankSharp/) | `dotnet add package BankSharp` |
+| `BankSharp.DependencyInjection` | [![NuGet](https://img.shields.io/nuget/v/BankSharp.DependencyInjection.svg?style=flat-square&logo=nuget)](https://www.nuget.org/packages/BankSharp.DependencyInjection/) | [![Downloads](https://img.shields.io/nuget/dt/BankSharp.DependencyInjection.svg?style=flat-square)](https://www.nuget.org/packages/BankSharp.DependencyInjection/) | `dotnet add package BankSharp.DependencyInjection` |
+| `BankSharp.FluentValidation` | [![NuGet](https://img.shields.io/nuget/v/BankSharp.FluentValidation.svg?style=flat-square&logo=nuget)](https://www.nuget.org/packages/BankSharp.FluentValidation/) | [![Downloads](https://img.shields.io/nuget/dt/BankSharp.FluentValidation.svg?style=flat-square)](https://www.nuget.org/packages/BankSharp.FluentValidation/) | `dotnet add package BankSharp.FluentValidation` |
+| `BankSharp.EntityFrameworkCore` | [![NuGet](https://img.shields.io/nuget/v/BankSharp.EntityFrameworkCore.svg?style=flat-square&logo=nuget)](https://www.nuget.org/packages/BankSharp.EntityFrameworkCore/) | [![Downloads](https://img.shields.io/nuget/dt/BankSharp.EntityFrameworkCore.svg?style=flat-square)](https://www.nuget.org/packages/BankSharp.EntityFrameworkCore/) | `dotnet add package BankSharp.EntityFrameworkCore` |
+| `BankSharp.OpenApi` | [![NuGet](https://img.shields.io/nuget/v/BankSharp.OpenApi.svg?style=flat-square&logo=nuget)](https://www.nuget.org/packages/BankSharp.OpenApi/) | [![Downloads](https://img.shields.io/nuget/dt/BankSharp.OpenApi.svg?style=flat-square)](https://www.nuget.org/packages/BankSharp.OpenApi/) | `dotnet add package BankSharp.OpenApi` |
 
 > **Note:** All packages are versioned in lockstep (e.g., `1.0.0` across the suite).
 
