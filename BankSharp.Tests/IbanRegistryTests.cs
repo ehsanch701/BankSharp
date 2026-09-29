@@ -1,5 +1,4 @@
 ﻿using BankSharp.Registry;
-using Xunit;
 
 namespace BankSharp.Tests.Registry;
 
@@ -8,6 +7,7 @@ namespace BankSharp.Tests.Registry;
 /// Validates default country specifications, field length constraints, 
 /// zero-allocation span lookups, and dynamic custom rule registrations.
 /// </summary>
+[Collection("StaticRegistryTests")]
 public class IbanRegistryTests
 {
     /// <summary>
@@ -168,6 +168,7 @@ public class IbanRegistryTests
     /// <summary>
     /// Stress tests parallel rule registrations to ensure thread-safety, 
     /// atomic copy-on-write snapshot updates, and registry data integrity under high concurrency.
+    /// Uses 2-letter ISO-compliant country codes to avoid polluting shared registry state.
     /// </summary>
     [Fact]
     public void RegisterCustomRule_ConcurrentAccess_MaintainsThreadSafetyAndDataIntegrity()
@@ -175,10 +176,10 @@ public class IbanRegistryTests
         // Arrange
         const int concurrentWriters = 20;
 
-        // Act - Stress test threads by concurrently registering distinct country rules
+        // Act - Concurrently register valid 2-character country codes (XA, XB, ..., XT)
         Parallel.For(0, concurrentWriters, i =>
         {
-            var code = $"T{i:D2}"; // T00, T01, ..., T19
+            var code = $"X{(char)('A' + i)}"; // 2-letter format: XA, XB, ..., XT
             var customRule = new CountryRule
             {
                 CountryCode = code,
@@ -192,7 +193,7 @@ public class IbanRegistryTests
         // Assert - Verify no updates were dropped and all rules persist in the final snapshot
         for (int i = 0; i < concurrentWriters; i++)
         {
-            var code = $"T{i:D2}";
+            var code = $"X{(char)('A' + i)}";
             var success = IbanRegistry.TryGetRule(code.AsSpan(), out var rule);
             Assert.True(success, $"Concurrent rule {code} failed to register.");
             Assert.Equal(20 + i, rule.TotalLength);

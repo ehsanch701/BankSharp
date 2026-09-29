@@ -7,6 +7,8 @@ namespace BankSharp.Tests;
 /// Contains unit tests ensuring integrity, bounds safety, and ISO compliance 
 /// for country-specific IBAN metadata registered in <see cref="IbanRegistry"/>.
 /// </summary>
+
+[Collection("StaticRegistryTests")]
 public sealed class CountryRuleDataTests
 {
     [Fact]
