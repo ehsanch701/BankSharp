@@ -18,16 +18,15 @@
 		<Title>BankSharp.OpenApi - OpenAPI &amp; Swagger Enrichment for BankSharp</Title>
 		<Description>OpenAPI schema enrichment and examples for BankSharp IBAN types and validation attributes in ASP.NET Core.</Description>
 		<PackageTags>iban;openapi;swagger;scalar;banksharp;validation;aspnetcore;dotnet8;dotnet9;dotnet10</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release supporting OpenAPI schema transformers across .NET 8 (Swashbuckle), .NET 9 (Microsoft.AspNetCore.OpenApi v1), and .NET 10 (v2 object model).</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>embedded</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
@@ -66,10 +65,11 @@
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.*" />
 	</ItemGroup>
 
-	<!-- Package Icon & Readme from repository root using deterministic relative paths -->
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

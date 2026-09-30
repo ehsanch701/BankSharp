@@ -23,16 +23,15 @@
 		<Title>BankSharp - High-Performance Banking &amp; IBAN Library for .NET</Title>
 		<Description>BankSharp is a zero-allocation, ultra-high-performance, Native AOT-compatible banking library designed for validating, parsing, and formatting IBANs (International Bank Account Numbers) with full ISO 13616 and Iranian Sheba support.</Description>
 		<PackageTags>iban;banking;fintech;finance;mod97;zero-allocation;aot;performance;csharp;dotnet8;dotnet9;dotnet10;sheba</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release featuring zero-allocation IBAN validation, formatting, parsing, Native AOT support, and multi-targeting for .NET 8, 9, and 10.</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>embedded</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
@@ -62,6 +61,7 @@
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

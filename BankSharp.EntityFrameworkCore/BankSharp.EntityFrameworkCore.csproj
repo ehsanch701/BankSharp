@@ -18,20 +18,19 @@
 		<Title>BankSharp.EntityFrameworkCore - EF Core Support for BankSharp</Title>
 		<Description>Entity Framework Core integration for BankSharp. Provides strongly-typed ValueConverters, ModelBuilder extensions, and transparent database persistence for IBANs.</Description>
 		<PackageTags>iban;banking;fintech;entity-framework-core;efcore;ef;valueconverter;modelbuilder;orm;database;dotnet8;dotnet9;dotnet10</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release providing IbanValueConverter and ModelBuilder configuration extensions for EF Core.</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging -->
+		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>embedded</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-		<!-- Deterministic CI Builds -->
+		<!-- Deterministic CI Builds for GitHub Actions -->
 		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
 		<!-- Package Assets -->
@@ -54,10 +53,11 @@
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- Packaging Asset Configuration -->
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

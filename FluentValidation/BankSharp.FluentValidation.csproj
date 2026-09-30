@@ -18,16 +18,15 @@
 		<Title>BankSharp.FluentValidation - FluentValidation Extensions for BankSharp</Title>
 		<Description>FluentValidation extensions for BankSharp. Provides fluent rule builders (.MustBeValidIban()) for seamless, high-performance IBAN validation with custom error messages and ISO-13616 compliance.</Description>
 		<PackageTags>iban;banking;fintech;fluentvalidation;validation;rules;validator;iso13616;dotnet8;dotnet9;dotnet10</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release providing fluent extension methods for IBAN validation with FluentValidation.</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>embedded</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
@@ -54,10 +53,11 @@
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- Package Icon & Readme from repository root using deterministic relative paths -->
+	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>

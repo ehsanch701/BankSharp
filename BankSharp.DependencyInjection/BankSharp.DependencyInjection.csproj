@@ -22,16 +22,15 @@
 		<Title>BankSharp.DependencyInjection - Microsoft.Extensions.DependencyInjection Support</Title>
 		<Description>Dependency Injection extensions and service registrations for BankSharp IBAN validation, parsing, and formatting toolkit in ASP.NET Core and .NET applications.</Description>
 		<PackageTags>iban;banking;fintech;dependency-injection;di;ioc;aspnetcore;servicecollection;dotnet8;dotnet9;dotnet10</PackageTags>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReleaseNotes>Initial 1.0.0 release providing IIbanValidator service registrations and IServiceCollection extensions for BankSharp.</PackageReleaseNotes>
 
-		<!-- Documentation & Symbols Packaging (SourceLink & Debugging Experience) -->
+		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<DebugType>embedded</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
@@ -64,6 +63,7 @@
 	<ItemGroup>
 		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
 		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
 	</ItemGroup>
 
 </Project>
