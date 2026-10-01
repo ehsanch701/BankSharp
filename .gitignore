@@ -12,6 +12,7 @@
 [Oo]bj/
 [Dd]ebug/
 [Rr]elease/
+artifacts/
 *.dll
 *.pdb
 *.exe
@@ -19,6 +20,8 @@
 *.runtimeconfig.json
 *.cache
 *.Up2Date
+*.zip
+.vs/
 
 ## NuGet Packages (مهم برای dotnet pack)
 *.nupkg
