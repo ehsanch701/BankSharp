@@ -28,7 +28,9 @@ We are obsessed with performance and precision. If you're planning to contribute
      * `feat: add support for Turkish IBAN`
      * `fix: resolve overflow in Mod97 calculation`
      * `perf: reduce allocations in parser`
-5. **Pull Request:** Open a Pull Request, describe your changes, and link any related issues.
+5. **Update CHANGELOG (Optional):** If applicable, add a one-line summary of your change under the `[Unreleased]` section in `CHANGELOG.md`.
+6. **Pull Request:** Open a Pull Request, describe your changes, and link any related issues.
+
 
 ## 🧪 Testing
 
