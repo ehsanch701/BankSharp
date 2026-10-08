@@ -56,7 +56,7 @@
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 		<ProjectReference Include="..\BankSharp.DependencyInjection\BankSharp.DependencyInjection.csproj" />
 		<!-- Adjust relative directory path if your folder is named BankSharp.FluentValidation -->
-		<ProjectReference Include="..\FluentValidation\BankSharp.FluentValidation.csproj" />
+		<ProjectReference Include="..\BankSharp.FluentValidation\BankSharp.FluentValidation.csproj" />
 		<ProjectReference Include="..\BankSharp.EntityFrameworkCore\BankSharp.EntityFrameworkCore.csproj" />
 		<ProjectReference Include="..\BankSharp.OpenApi\BankSharp.OpenApi.csproj" />
 	</ItemGroup>

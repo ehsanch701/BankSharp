@@ -5,5 +5,5 @@
   <Project Path="BankSharp.OpenApi/BankSharp.OpenApi.csproj" Id="6604679a-a37d-4995-907e-acb9a9db4e32" />
   <Project Path="BankSharp.Tests/BankSharp.Tests.csproj" />
   <Project Path="BankSharp/BankSharp.csproj" />
-  <Project Path="FluentValidation/BankSharp.FluentValidation.csproj" Id="871bca96-c0f7-414f-a8f2-e6c1a3bd7b89" />
+  <Project Path="BankSharp.FluentValidation/BankSharp.FluentValidation.csproj" Id="871bca96-c0f7-414f-a8f2-e6c1a3bd7b89" />
 </Solution>

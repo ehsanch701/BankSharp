@@ -1,6 +1,6 @@
-﻿using BankSharp.FluentValidation;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.TestHelper;
+using BankSharp.FluentValidation;
 
 namespace BankSharp.Tests
 {

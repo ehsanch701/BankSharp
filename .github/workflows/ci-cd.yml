@@ -1,0 +1,114 @@
+name: CI / CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*.*.*" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    name: Build & Test (.NET 8, 9, 10)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET SDKs
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.x
+
+    - name: Restore Dependencies
+      run: dotnet restore BankSharp.slnx
+
+    - name: Build Solution (Release)
+      run: dotnet build BankSharp.slnx --configuration Release --no-restore
+
+    - name: Run Unit Tests
+      run: >
+        dotnet test BankSharp.Tests/BankSharp.Tests.csproj
+        --configuration Release
+        --no-build
+        --verbosity normal
+        --collect:"XPlat Code Coverage"
+
+  publish:
+    name: Publish to NuGet & GitHub Release
+    needs: build-and-test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET SDKs
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.x
+
+    - name: Extract Version from Tag
+      id: get_version
+      run: |
+        TAG_NAME="${{ github.ref_name }}"
+        VERSION="${TAG_NAME#v}"
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Target Version for Release: $VERSION"
+
+    - name: Pack Packages
+      run: |
+        VERSION="${{ steps.get_version.outputs.VERSION }}"
+        
+        projects=(
+          "BankSharp/BankSharp.csproj"
+          "BankSharp.DependencyInjection/BankSharp.DependencyInjection.csproj"
+          "BankSharp.EntityFrameworkCore/BankSharp.EntityFrameworkCore.csproj"
+          "BankSharp.FluentValidation/BankSharp.FluentValidation.csproj"
+          "BankSharp.OpenApi/BankSharp.OpenApi.csproj"
+        )
+        
+        for proj in "${projects[@]}"; do
+          echo "Packaging $proj with version $VERSION..."
+          dotnet pack "$proj" \
+            --configuration Release \
+            --output ./artifacts \
+            -p:PackageVersion="$VERSION" \
+            -p:Version="$VERSION"
+        done
+
+    - name: Verify Packages Created
+      run: ls -la ./artifacts
+
+    - name: Push to NuGet.org
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        dotnet nuget push ./artifacts/*.nupkg \
+          --api-key "$NUGET_API_KEY" \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "Release ${{ github.ref_name }}"
+        tag_name: ${{ github.ref }}
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+        files: |
+          ./artifacts/*.nupkg
+          ./artifacts/*.snupkg
