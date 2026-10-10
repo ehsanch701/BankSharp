@@ -12,7 +12,9 @@
 
 		<!-- Native AOT & Trimming Support -->
 		<IsAotCompatible>true</IsAotCompatible>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
 		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<IsTrimmable>true</IsTrimmable>
 
 		<!-- NuGet Package Identity & Metadata -->
 		<PackageId>BankSharp.DependencyInjection</PackageId>
@@ -30,9 +32,13 @@
 
 		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DebugType>embedded</DebugType>
+		<DebugType>portable</DebugType>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- Symbol Package (.snupkg) Generation for NuGet Debugging Experience -->
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 		<!-- Deterministic CI Builds for GitHub Actions -->
 		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
