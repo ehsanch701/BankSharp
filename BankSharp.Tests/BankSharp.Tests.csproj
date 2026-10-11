@@ -47,15 +47,14 @@
 
 	<!-- .NET 10.0: EF Core In-Memory 10 and Microsoft OpenAPI v2 -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.*" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
 	</ItemGroup>
 
 	<!-- References covering all projects within the BankSharp ecosystem -->
 	<ItemGroup>
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 		<ProjectReference Include="..\BankSharp.DependencyInjection\BankSharp.DependencyInjection.csproj" />
-		<!-- Adjust relative directory path if your folder is named BankSharp.FluentValidation -->
 		<ProjectReference Include="..\BankSharp.FluentValidation\BankSharp.FluentValidation.csproj" />
 		<ProjectReference Include="..\BankSharp.EntityFrameworkCore\BankSharp.EntityFrameworkCore.csproj" />
 		<ProjectReference Include="..\BankSharp.OpenApi\BankSharp.OpenApi.csproj" />

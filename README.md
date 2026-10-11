@@ -2,14 +2,15 @@
 
 <div align="center">
 
-[![Build & Test](https://github.com/ehsanch701/BankSharp/actions/workflows/ci.yml/badge.svg)](https://github.com/ehsanch701/BankSharp/actions)
+[![CI/CD](https://github.com/ehsanch701/BankSharp/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/ehsanch701/BankSharp/actions/workflows/ci-cd.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/BankSharp.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/BankSharp/)
 [![Total Downloads](https://img.shields.io/nuget/dt/BankSharp.svg?style=flat&logo=nuget)](https://www.nuget.org/packages/BankSharp/)
-[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-blueviolet?logo=dotnet)](https://dotnet.microsoft.com/)
-[![Native AOT](https://img.shields.io/badge/Native%20AOT-Compatible-success?logo=dotnet)](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![.NET](https://img.shields.io/badge/.NET-8.0%20%7C%209.0%20%7C%2010.0-blueviolet?style=flat&logo=dotnet)](https://dotnet.microsoft.com/)
+[![Native AOT](https://img.shields.io/badge/Native%20AOT-Compatible-success?style=flat&logo=dotnet)](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat)](https://opensource.org/licenses/MIT)
 
 </div>
+
 
 **BankSharp** is an ultra-fast ISO 13616 International Bank Account Number (IBAN) validation, parsing, and formatting library for .NET, engineered for high throughput with zero-allocation hot paths and full **Native AOT** compatibility.
 
@@ -38,9 +39,10 @@
 - 🚀 **Allocation-Free Core:** Core validation (`IbanValidator.Validate(ReadOnlySpan<char>)`) and formatting APIs (`TryToPrintFormat`, `TryNormalize`, `TryToMaskedFormat`, `TryFormat`) allocate **0 bytes** on the managed heap on successful hot paths.
 - ⚡ **Span-First:** Heavily utilizes `ReadOnlySpan<char>`, `stackalloc`, `SearchValues<char>`, and `FrozenDictionary` for lookup.
 - 📦 **Modern .NET:** Multi-targeted for **`.NET 8.0`**, **`.NET 9.0`**, and **`.NET 10.0`**.
-- 🛡️ **Native AOT Ready:** Trim-safe, no runtime reflection, ready for serverless and container deployments (`<IsAotCompatible>true</IsAotCompatible>`).
+- 🛡️ **Native AOT Ready (Core & Extensions):** Trim-safe with zero runtime reflection across all packages (`<IsAotCompatible>true</IsAotCompatible>`).
 - 🧩 **Modular Architecture:** Opt-in extensions for EF Core, FluentValidation, OpenAPI/Swagger, and Dependency Injection.
 - 🇮🇷 **First-Class Iranian Sheba Support:** Strict 26-character national format (`IR`) with bank routing rules built-in.
+
 
 ---
 

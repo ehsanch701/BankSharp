@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for NuGet Trusted Publishing (OIDC)
 
 jobs:
   build-and-test:
@@ -72,6 +73,7 @@ jobs:
       run: |
         VERSION="${{ steps.get_version.outputs.VERSION }}"
         
+        # Array of projects to pack
         projects=(
           "BankSharp/BankSharp.csproj"
           "BankSharp.DependencyInjection/BankSharp.DependencyInjection.csproj"
@@ -92,12 +94,10 @@ jobs:
     - name: Verify Packages Created
       run: ls -la ./artifacts
 
-    - name: Push to NuGet.org
-      env:
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    - name: Push to NuGet.org (Trusted Publisher OIDC)
       run: |
-        dotnet nuget push ./artifacts/*.nupkg \
-          --api-key "$NUGET_API_KEY" \
+        # No API key required; OIDC authentication is handled automatically by GitHub Actions
+        dotnet nuget push "./artifacts/*.nupkg" \
           --source https://api.nuget.org/v3/index.json \
           --skip-duplicate
 
