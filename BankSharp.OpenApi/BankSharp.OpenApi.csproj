@@ -1,85 +1,87 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<!-- Target Frameworks: Multi-targeting .NET 8 (LTS), .NET 9 (STS), and .NET 10 -->
+		<!-- Target Frameworks: .NET 8 (LTS), .NET 9 (STS), and .NET 10 -->
 		<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 
-		<!-- Strict Compiler Hygiene & Quality Gate -->
+		<!-- Quality & Security Gates -->
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
-		<!-- Native AOT & Trimming Compatibility -->
+		<!-- Native AOT & Trimming -->
 		<IsAotCompatible>true</IsAotCompatible>
 		<EnableAotAnalyzer>true</EnableAotAnalyzer>
 		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
 		<IsTrimmable>true</IsTrimmable>
 
-		<!-- NuGet Package Identity & Metadata -->
+		<!-- NuGet Package Metadata -->
 		<PackageId>BankSharp.OpenApi</PackageId>
 		<Version>1.0.0</Version>
 		<Authors>EhsanChegeni</Authors>
 		<Company>EhsanChegeni</Company>
-		<Title>BankSharp.OpenApi - OpenAPI &amp; Swagger Enrichment for BankSharp</Title>
-		<Description>OpenAPI schema enrichment and examples for BankSharp IBAN types and validation attributes in ASP.NET Core.</Description>
-		<PackageTags>iban;openapi;swagger;scalar;banksharp;validation;aspnetcore;dotnet8;dotnet9;dotnet10</PackageTags>
+		<Title>BankSharp.OpenApi</Title>
+		<Description>OpenAPI schema enrichment and examples for BankSharp IBAN types.</Description>
+		<PackageTags>iban;openapi;swagger;banksharp;validation;dotnet8;dotnet9;dotnet10</PackageTags>
+
+		<!-- NuGet Assets & Licensing -->
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
 		<PackageProjectUrl>https://github.com/ehsanch701/BankSharp</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/ehsanch701/BankSharp</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>Initial 1.0.0 release supporting OpenAPI schema transformers across .NET 8 (Swashbuckle), .NET 9 (Microsoft.AspNetCore.OpenApi v1), and .NET 10 (v2 object model).</PackageReleaseNotes>
 
-		<!-- Documentation & SourceLink Debugging Experience (Embedded PDB for Seamless Step-Through) -->
+		<!-- Documentation & Symbols -->
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<DebugType>portable</DebugType>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-
-		<!-- Symbol Package (.snupkg) Generation for NuGet Debugging Experience -->
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugType>portable</DebugType>
 
-		<!-- Deterministic CI Builds for GitHub Actions -->
+		<!-- Reproducible/Deterministic Builds -->
 		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-
-		<!-- NuGet Package Assets -->
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>
 
-	<!-- Enable Source Link for reproducible builds and source stepping in debuggers -->
+	<!-- Source Link for Debugging -->
 	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401" PrivateAssets="All" />
 	</ItemGroup>
 
-	<!-- Core Library Reference (Packaged as a package dependency) -->
+	<!-- Core Project Dependencies -->
 	<ItemGroup>
 		<ProjectReference Include="..\BankSharp\BankSharp.csproj" />
 	</ItemGroup>
 
-	<!-- .NET 8.0: Classic Swashbuckle SwaggerGen integration -->
+	<!-- NuGet Assets Packaging -->
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="..\icon.png" Pack="true" PackagePath="\" Visible="false" />
+		<None Include="..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
+	</ItemGroup>
+
+	<!-- Framework Specific Dependencies -->
+
+	<!-- .NET 8.0: Classic Swashbuckle -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
 		<PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
 	</ItemGroup>
 
-	<!-- .NET 9.0: Built-in Microsoft OpenAPI support (v1.x object model) -->
+	<!-- .NET 9.0: Microsoft.AspNetCore.OpenApi v1 -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
 		<PackageReference Include="Microsoft.OpenApi" Version="1.6.23" />
 	</ItemGroup>
 
-	<!-- .NET 10.0: Modern Microsoft OpenAPI support (v2.x object model) -->
+	<!-- .NET 10.0: Modern Microsoft OpenAPI v2 (Strictly pinned to 2.0.4 to prevent NU1903 & NU1603) -->
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
+		<PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
 	</ItemGroup>
 
-	<!-- NuGet Assets Packaging (Clean, Safe & Deterministic Relative Paths) -->
-	<ItemGroup>
-		<None Include="$(MSBuildThisFileDirectory)..\README.md" Pack="true" PackagePath="\" Visible="false" />
-		<None Include="$(MSBuildThisFileDirectory)..\icon.png" Pack="true" PackagePath="\" Visible="false" />
-		<None Include="$(MSBuildThisFileDirectory)..\LICENSE" Pack="true" PackagePath="\" Visible="false" />
-	</ItemGroup>
 
 </Project>
